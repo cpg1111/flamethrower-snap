@@ -1,17 +1,37 @@
 name: flamethrower # you probably want to 'snapcraft register <name>'
 base: core24 # the base snap is the execution environment for this snap
 version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+summary: Flamethrower DNS performance test tool
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+  Flamethrower is a small, fast, configurable tool for functional testing,
+  benchmarking, and stress testing DNS servers and networks. It supports IPv4,
+  IPv6, UDP, TCP, DoT, and DoH and has a modular system for
+  generating queries used in the tests.
 
 grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
+apps:
+  flamethrower:
+    command: usr/local/bin/flame
+
 parts:
-  my-part:
-    # See 'snapcraft plugins'
-    plugin: nil
+  flamethrower:
+    plugin: cmake
+    cmake-parameters:
+      - -DDOH_ENABLE=ON
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    build-packages:
+      - g++
+      - pkgconf
+      - libuv1-dev
+      - libldns-dev
+      - libgnutls28-dev
+      - libnghttp2-dev
+    stage-packages:
+      - libuv1
+      - libldns3
+      - nghttp2
+    source-type: git
+    source: https://github.com/dns-oarc/flamethrower
+    source-branch: master
