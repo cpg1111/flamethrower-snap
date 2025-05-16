@@ -1,6 +1,8 @@
 name: flamethrower-dns
 base: core24
 version: '0.1'
+website: https://github.com/cpg1111/flamethrower-snap
+source-code: https://github.com/cpg1111/flamethrower-snap
 summary: Flamethrower DNS performance test tool
 description: |
   Flamethrower is a small, fast, configurable tool for functional testing,
